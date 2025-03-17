@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Object Décoration{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">Nos objects de décoration</h1>
+<a href="{{ path('admin_objectdecoration_ajout') }}" class="btn btn-success">Ajouter un object de décoration</a>
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><u>Nom</u></th>
+      <th scope="col"><u>Detail</u></th>
+      <th scope="col"><u>Actions</u></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for objet in lesObjectDecorations %}
+      <tr>
+        <td class="col-2">
+          {% if objet.imageFilename %}
+            <img class="avatar mx-auto d-block" style="height: auto; width: 300px; display: block;" src="{{ asset('uploads/images/' ~ objet.imageFilename) }}" alt="{{ objet.nom }}">
+          {% else %}
+            Pas d'image
+          {% endif %}
+        </td>
+        <td class="col-2">{{ objet.nom }}</td>
+        <td class="col-7">
+          <p class="d-flex flex-row">
+            <span class="align-self-center badge-success">{{ objet.prix }}€</span>
+             <span class="align-self-center mx-3">{{ objet.materiaux }}</span>
+            <span class="align-self-center mx-3">{{ objet.couleur }}</span>
+         {# <span class="align-self-center ml-auto">{{ objet.dureeDeVie }}</span>
+            <span class="align-self-center mx-3">{{ objet.taille }}</span> #}
+          </p>
+          <p>{{ objet.description|slice(0, 200)|raw }}...</p>
+        </td>
+        <td class="col-2">
+          <a href="{{ path('admin_objectdecoration_modif', {'id': objet.id}) }}" class="btn btn-outline-success">
+            <i class="fas fa-pen"></i>
+          </a>
+        </td>
+        <td>
+          <a class="btn btn-outline-danger" 
+             data-toggle="modal" 
+             data-target="#modalSimple"
+             data-titre="Suppression de l'objet"
+             data-message="Voulez-vous vraiment supprimer l'objet {{ objet.nom }} ?"
+             data-libelleBouton="Supprimer l'objet"
+             data-lien="{{ path('admin_objectdecoration_suppression', {'id': objet.id}) }}">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if lesObjectDecorations is same as('Knp\\Bundle\\PaginatorBundle\\Pagination\\SlidingPaginationInterface') %}
+  <div class="navigation mx-auto">
+    {{ knp_pagination_render(lesObjectDecorations) }}
+  </div> 
+{% endif %}
+{% endblock %}
+
+{% block javascripts %}
+  {{ include('include/_modale.html.twig') }}
+{% endblock %}

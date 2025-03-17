@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Fondants{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center"> 
+    {% if app.request.attributes.get('_route') == "admin_Fondant_ajout" %}
+        Ajout
+    {% else %}
+        Modification
+    {% endif %}
+    de Fondants parfumée
+</h1>
+
+{{ form_start(formFondant,{'attr':{'novalide':'novalidate'}})}}
+
+
+<div class="row">
+    <div class="col-8">{{ form_row(formFondant.nom) }}</div>
+    <div class="col">{{ form_row(formFondant.prix) }}</div>
+    <div class="col">{{ form_row(formFondant.ddv) }}</div>
+</div>
+
+
+<div class="row">
+    <div class="col">{{ form_row(formFondant.materiaux) }}</div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <img src="{{ asset('image/Fondants/' ~ formFondant.image.vars.value|replace({'http://': '', 'https://': ''})) }}" alt="" class="rounded mx-auto d-block img-thumbmail" style="height: auto; width: 300px; display: block;">
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col">
+        {{ form_row(formFondant.image) }}
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+        <input type="submit" class="btn valider btn-outline-success btn-block form-control" value="valider">
+    </div>
+    <div class="col">
+        <a href="{{ path('admin_Fondant') }}" class="btn btn-outline-warning btn-block form-control">Annuler</a>
+    </div>
+</div>
+
+{{ form_end(formFondant) }}
+{% endblock %}

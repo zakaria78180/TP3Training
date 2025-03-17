@@ -1,0 +1,8 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+
+admin_poudre_ajout:
+    path: /admin/poudre/ajout
+    controller: App\Controller\Admin\PoudreController::ajoutPoudre
+    methods: [GET, POST]

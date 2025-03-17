@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste de Diffuseur de Voiture{% endblock %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="pt-2 text-center">Nos poudres parfumée</h1>
+
+    {% if diffuseurs is not empty %}
+      <div class="row">
+        {% for diffuseur in diffuseurs %}
+          <div class="col-md-4 mb-4">
+            <a href="{{ path('diffuseur_voiture_Fiche', {'id': diffuseur.id }) }}" class="card-link">
+              <div class="card">
+                <div class="card-img-wrapper">
+                    <img class="avatar mx-auto d-block" style="height: auto; width: 300px; display: block;" src="{{ asset('uploads/images/' ~ diffuseur.setImageFilename) }}" alt="{{ diffuseur.nom }}">
+                </div>
+                    <div class="card-body">
+                    <h5 class="card-title">{{ diffuseur.nom }}</h5>
+                    <p class="card-text">{{ diffuseur.description }}</p>
+                    <p class="card-text"><strong>Prix :</strong> {{ diffuseur.prix }} €</p>
+                    </div>
+              </div>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>Aucun poudre trouvé.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+
+{% block stylesheets %}
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ1mR7gXQm7g66j6kR3J1ji7b+HkBqAqPTr9W1o8Dk5h7YdBxF1EbwFcbjop" crossorigin="anonymous">
+  <style>
+    .card {
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease-in-out;
+    }
+  </style>
+{% endblock %}

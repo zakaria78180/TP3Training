@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Poudre Parfumée{% endblock %}
+
+{% block body %}
+
+<h1 class="pt-2 text-center">
+    {% if app.request.attributes.get('_route') == "admin_poudre_ajout" %}
+        Ajout
+    {% else %}
+        Modification
+    {% endif %}
+     de poudres parfumée
+</h1>
+
+{{ form_start(formPoudre) }}
+{{ form_row(formPoudre.image) }}
+{{ form_row(formPoudre.nom) }}
+
+<div class="row">
+    <div class="col">{{ form_row(formPoudre.prix) }}</div>
+    <div class="col">{{ form_row(formPoudre.taille) }}</div>
+    <div class="col">{{ form_row(formPoudre.dureeDeVie) }}</div>
+    <div class="col">{{ form_row(formPoudre.materiaux) }}</div>
+    <div class="col">{{ form_row(formPoudre.couleur) }}</div>
+    <div class="col">{{ form_row(formPoudre.poids) }}</div>
+</div>
+
+{{ form_row(formPoudre.description) }}
+
+<div class="row">
+    <div class="col">
+        <input type="submit" class="btn btn-outline-success btn-block form-control" value=
+        {% if app.request.attributes.get('_route') == "admin_poudre_ajout" %}
+            "Ajouter l'artiste"
+        {% else %}
+            "Modifier de l'artiste"
+        {% endif %}
+        >
+    </div>
+    <div class="col">
+        <a href="{{ path('admin_poudre') }}" class="btn btn-outline-warning btn-block form-control">Annuler</a>
+    </div>
+</div>
+
+{{ form_end(formPoudre) }}
+
+{% endblock %}

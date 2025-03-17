@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Bougie{% endblock %}
+
+{% block body %}
+{% if lesBougies is not empty %}
+{{ form_start(FiltreBougie) }}
+  {{ form_row(FiltreBougie.nom) }}
+  <button type="submit" class="btn mt-4 btn-outline-warning"> Rechercher </button>
+ {{ form_end(FiltreBougie) }} 
+
+<a href=" {{ path("admin_bougie_ajout")}} " class="mt-4 btn btn-outline-primary">Ajouter une bougie</a>
+
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><u>Nom</u></th>
+      <th scope="col"><u>Detail</u></th>
+      <th scope="col"><u>Actions</u></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for LaBougie in lesBougies %}
+        {# {% set variable_name = expression %} #}
+        <tr class="pt-2" style="border-bottom: 1px solid #c74ae0; border-top: 1px solid #c74ae0">
+        <td class="col-2"><img class="avatar mx-auto d-block" style="height: auto; width: 300px; display: block;" src="{{ asset('uploads/images/' ~ LaBougie.imageFilename) }}" alt="{{ LaBougie.nom }}"></td>
+        <td class="col-2">{{LaBougie.nom}}</td>
+        <td class="col-7">
+        <p class="d-flex flex-row">
+          <span class="align-self-center badge-sucess"> {{LaBougie.prix}}€</span>
+          <span class="align-self-center mx-3"> {{LaBougie.materiaux}} </span>
+          <span class="align-self-center mx-3"> {{LaBougie.couleur}} </span>
+          <span class="align-self-center ml-auto"> {{LaBougie.ddv}} </span>
+          <span class="align-self-center mx-3"> {{LaBougie.taille}} </span>
+        </p>
+        </td>
+            <td class="col-2">
+                <a href="{{ path('admin_bougie_modif',{'id': LaBougie.id}) }}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+            </td>
+            <td>
+                <a class="btn btn-outline-danger"
+                 data-toggle="modal" 
+                 data-target="#modalSimple"  
+                 data-titre="Suppression de la bougie"
+                 data-message="Voulez-vous vraiment supprimer la bougie {{LaBougie.nom}} ?"
+                 data-libelleBouton = "Supprimer la bougie "
+                 data-lien = "{{ path('admin_bougie_suppr',{'id': LaBougie.id}) }}" 
+                 ><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        
+      {% endfor %} 
+      
+  </tbody>
+</table>
+    {% else %}
+      <p>Aucun objet décoratif trouvé.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+{% block javascripts %}
+
+  {% include "include/_modale.html.twig" %}
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

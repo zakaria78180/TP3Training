@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Panier{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center mt-4 mb-5">Mon Panier</h1>
+
+    {% set total = 0 %}
+    {% if cart.items is not empty %}
+        <div class="row">
+            {% for item in cart.items %}
+                {% set total = total + (item.bougie ? item.bougie.prix * item.quantity : 0) %}
+                {% set total = total + (item.objectDecoration ? item.objectDecoration.prix * item.quantity : 0) %}
+                {% set total = total + (item.poudre ? item.poudre.prix * item.quantity : 0) %}
+                {% set total = total + (item.fondant ? item.fondant.prix * item.quantity : 0) %}
+                <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                    <div class="card h-100">
+                        <div class="card-img-wrapper">
+                            {% if item.bougie %}
+                                <img class="card-img-top fixed-size-img" src="{{ asset('uploads/images/' ~ item.bougie.imageFileName|replace({'http://': '', 'https://': ''})) }}" alt="Card image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ item.bougie.nom }}</h5>
+                                    <p class="card-text"><strong>Prix :</strong> {{ item.bougie.prix }} €</p>
+                                    <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                    <form action="{{ path('remove_from_cart', {'id': item.id}) }}" method="post">
+                                        <button type="submit" class="btn jolie fa-trash btn-outline-danger mt-2 custom-button"> Supprimer</button>
+                                    </form>
+                                </div>
+                            {% elseif item.objectDecoration %}
+                                <img class="card-img-top fixed-size-img" src="{{ asset('uploads/images/' ~ item.objectDecoration.imageFileName|replace({'http://': '', 'https://': ''})) }}" alt="Card image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ item.objectDecoration.nom }}</h5>
+                                    <p class="card-text"><strong>Prix :</strong> {{ item.objectDecoration.prix }} €</p>
+                                    <p class="card-text d-flex justify-content-between align-items-center">
+                                        <span><strong>Quantité :</strong> {{ item.quantity }}</span>
+                                        <form action="{{ path('remove_from_cart', {'id': item.id}) }}" method="post">
+                                            <button type="submit" class="btn jolie fa-trash btn-outline-danger mt-2 custom-button"> Supprimer</button>
+                                        </form>
+                                    </p>
+                                </div>
+                            {% elseif item.poudre %}
+                                <img class="card-img-top fixed-size-img" src="{{ asset('uploads/images/' ~ item.poudre.imageFileName|replace({'http://': '', 'https://': ''})) }}" alt="Card image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ item.poudre.nom }}</h5>
+                                    <p class="card-text"><strong>Prix :</strong> {{ item.poudre.prix }} €</p>
+                                    <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                    <form action="{{ path('remove_from_cart', {'id': item.id}) }}" method="post">
+                                        <button type="submit" class="btn jolie fa-trash btn-outline-danger mt-2 custom-button"> Supprimer</button>
+                                    </form>
+                                </div>
+                            {% elseif item.fondant %}
+                                <img class="card-img-top fixed-size-img" src="{{ asset('uploads/images/' ~ item.fondant.imageFileName|replace({'http://': '', 'https://': ''})) }}" alt="Card image">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title">{{ item.fondant.nom }}</h5>
+                                    <p class="card-text"><strong>Prix :</strong> {{ item.fondant.prix }} €</p>
+                                    <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                    <form action="{{ path('remove_from_cart', {'id': item.id}) }}" method="post">
+                                        <button type="submit" class="btn jolie fa-trash btn-outline-danger mt-2 custom-button"> Supprimer</button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="d-flex justify-content-center my-4">
+            <form action="{{ path('pay_cart') }}" method="post">
+                <button type="submit" class="btn fa-solid fa-cart-shopping btn-outline-success mt-2">   Payer </button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="col-md-12 text-right">
+                <h4>Total: {{ total }} €</h4>
+            </div>
+        </div>
+    {% else %}
+        <p>Votre panier est vide.</p>
+    {% endif %}
+
+    <style>
+    .jolie {
+        font-family: 'Lobster', cursive;
+        text-align: center;
+    }
+    .fixed-size-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    </style>
+</div>
+{% endblock %}

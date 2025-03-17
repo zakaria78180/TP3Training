@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Fondant{% endblock %}
+
+{% block body %}
+
+{{ form_start(FiltreFondant) }}
+  {{ form_row(FiltreFondant.nom) }}
+  <button type="submit" class="btn mt-4 btn-outline-warning"> Rechercher </button>
+ {{ form_end(FiltreFondant) }} 
+
+<a href=" {{ path("admin_Fondant_ajout")}} " class="mt-4 btn btn-outline-primary">Ajouter un Fondant</a>
+{% if lesFondants is not empty %}
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col"><u>Nom</u></th>
+      <th scope="col"><u>Detail</u></th>
+      <th scope="col"><u>Actions</u></th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for LeFondant in lesFondants %}
+        {# {% set variable_name = expression %} #}
+        <tr class="pt-2" style="border-bottom: 1px solid #c74ae0; border-top: 1px solid #c74ae0">
+        <td class="col-2"><img class="avatar mx-auto d-block" style="height: auto; width: 300px; display: block;" src="{{ asset('uploads/images/' ~ LeFondant.imageFilename) }}" alt="{{ LeFondant.nom }}"></td>
+        <td class="col-2">{{LeFondant.nom}}</td>
+        <td class="col-7">
+        <p class="d-flex flex-row">
+          <span class="align-self-center badge-sucess"> {{LeFondant.prix}}€</span>
+          <span class="align-self-center mx-3"> {{LeFondant.materiaux}} </span>
+          <span class="align-self-center ml-auto"> {{LeFondant.ddv}} </span>
+        </p>
+        </td>
+            <td class="col-2">
+                <a href="{{ path('admin_Fondant_modif',{'id': LeFondant.id}) }}" class="btn btn-outline-primary"><i class="fas fa-pen"></i></a>
+            </td>
+            <td>
+                <a class="btn btn-outline-danger"
+                 data-toggle="modal" 
+                 data-target="#modalSimple"  
+                 data-titre="Suppression de la Fondant"
+                 data-message="Voulez-vous vraiment supprimer la Fondant {{LeFondant.nom}} ?"
+                 data-libelleBouton = "Supprimer la Fondant "
+                 data-lien = "{{ path('admin_Fondant_suppr',{'id': LeFondant.id}) }}" 
+                 ><i class="fas fa-trash"></i></a>
+            </td>
+        </tr>
+        
+      {% endfor %} 
+      
+  </tbody>
+</table>
+    {% else %}
+      <p>Aucun fondant trouvé.</p>
+    {% endif %}
+
+</div>
+{% endblock %}
+{% block javascripts %}
+
+  {% include "include/_modale.html.twig" %}
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

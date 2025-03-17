@@ -1,0 +1,62 @@
+.prix {
+    font-size: 30px;
+} 
+
+.connexion img{
+            border-radius: 50%; /* Arrondi complet pour un cercle */
+            overflow: hidden; /* Coupe les parties débordantes */
+            object-fit: cover; /* Ajuste l'image pour qu'elle remplisse le conteneur */
+            border: 5px solid #000; /* Optionnel : bordure */
+}
+
+.btn-outline-primary{
+    background-color: #c74ae0;
+}
+
+
+.btn-outline-success{
+    background-color: #027e02;
+}
+
+.btn-outline-danger{
+    background-color: #670101;
+}
+
+.supermini {
+    max-width: 50px;
+    height: auto;
+}
+
+.valider {
+    background-color: #2f0bd3;
+}
+/* le css de FichePoudre.html.twig */
+.col-md-6.mb-4 {
+    margin-right: 10px; 
+}
+
+.btn-outline-warning:hover {
+    color: #fff;
+    background-color:rgb(133, 107, 31);
+    border-color:rgb(126, 115, 83);
+}
+
+
+.card-bougie {
+    background-color: pink;
+    color :rgb(28, 43, 128)
+}
+
+.card-object-decoration {
+    background-color: lightblue;
+}
+
+.card-poudre {
+    background-color: lightgreen;
+}
+
+.card-fondant {
+        background-color: rgb(33, 23, 173);
+        color: white;
+        
+}

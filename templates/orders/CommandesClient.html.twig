@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+    <h1 class="text-center mt-4 mb-5">Nos Commandes</h1>
+
+    {% if groupedCartItems is not empty %}
+        {% for cartData in groupedCartItems %}
+            <div class="card mb-4">
+    
+               
+                <div class="card-body">
+                    <div class="row">
+                        {% for item in cartData.items %}
+                            {% set cardClass = '' %}
+                            {% if item.bougie %}
+                                {% set cardClass = 'card-bougie' %}
+                            {% elseif item.objectDecoration %}
+                                {% set cardClass = 'card-object-decoration' %}
+                            {% elseif item.poudre %}
+                                {% set cardClass = 'card-poudre' %}
+                            {% elseif item.fondant %}
+                                {% set cardClass = 'card-fondant' %}
+                                
+                            {% endif %}
+                            <div class="col-md-4 mb-4 d-flex align-items-stretch">
+                                <div class="card h-100 {{ cardClass }}">
+                                    <div class="card-body d-flex flex-column">
+                                        {% if item.bougie %}
+                                            <h5 class="card-title">{{ item.bougie.nom }}</h5>
+                                            <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                        {% elseif item.objectDecoration %}
+                                            <h5 class="card-title">{{ item.objectDecoration.nom }}</h5>
+                                            <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                        {% elseif item.poudre %}
+                                            <h5 class="card-title">{{ item.poudre.nom }}</h5>
+                                            <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                        {% elseif item.fondant %}
+                                            <h5 class="card-title">{{ item.fondant.nom }}</h5>
+                                            <p class="card-text"><strong>Quantité :</strong> {{ item.quantity }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No paid orders found.</p>
+    {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Kaline Création{% endblock %}</title>
+    <link rel="stylesheet" href="https://bootswatch.com/5/morph/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+    <script src="https://kit.fontawesome.com/d8c04e6e7c.js" crossorigin="anonymous"></script>
+    {% block stylesheets %}
+      {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg bg-dark pt-4" data-bs-theme="dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Kaline Creation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor04" aria-controls="navbarColor04" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarColor04">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Listes des bougies</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('Bougies') }}">Liste Bougies</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Liste des fondants</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('Fondants') }}">Fondant</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Objet décoratifs</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('app_liste_objetdecoration') }}">Objet Décoratifs</a>
+              </div>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Liste de Parfum</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('poudre') }}">Poudre Parfumée</a>
+              </div>
+            </li>
+            {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Administration</a>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ path('admin_poudre') }}">Gestion des Poudres Parfumées</a>
+                <a class="dropdown-item" href=" {{path('admin_objectdecoration')}} ">Gestion des Objets Décorations</a>
+
+                <a class="dropdown-item" href="#">Gestion de diffuseur de voiture</a>
+                <a class="dropdown-item" href="{{path('admin_Fondant')}}">Gestion des fondants</a>
+                <a class="dropdown-item" href="{{path('admin_Bougie')}}">Gestion des Bougies</a>
+              </div>
+            </li>
+            <a  class="btn btn-outline-info " href="{{ path('orders') }} "> Commandes</a>
+            {% endif %}
+            {% if is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') %}
+              <a  class="btn btn-outline-info " href="{{ path('orders_client') }} "> Mes Commandes</a>
+            {% endif %}
+          </ul>
+          {% if app.user %}
+            <li class="nav-item list-unstyled">
+              <img class="connexion supermini" src="{{ app.user.avatar }}" alt="photo de {{app.user.nom}}"> </img>
+            </li>
+            <a class="btn btn-outline-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">{{ app.user.nom }}</a>
+            <div class="dropdown-menu dropdown-menu-end">
+              <a class="dropdown-item" href="{{path('view_cart')}}">Mon Panier</a>                                                                                                                                                                                                                                     
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+            </div>
+          </li>
+          {% else %}
+            <a href="{{path('app_login')}}">
+              <button type="button" class="btn connexion btn-outline-success">
+                Se connecter
+              </button>
+            </a>
+            <a href="{{path('app_register')}}">
+              <button type="button" class="btn connexion btn-outline-primary">
+                S'inscrire
+              </button>
+            </a>
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }} mt-3">
+          {% for message in messages %}
+            <p>{{ message }}</p>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      {% block body %}{% endblock %}
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    {% block javascripts %}{% endblock %}
+    <div class="container my-5">
+      <footer class="text-center text-lg-start" style="background-color: pink;">
+        <div class="container d-flex justify-content-center py-5">
+          <a href="https://www.tiktok.com/@kalinecreation.com">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-floating mx-2" style="background-color: #d7aaf0;">
+              <i class="fab fa-tiktok"></i>
+            </button>
+          </a>
+          <a href="https://www.instagram.com/kaline_creation78/">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-floating mx-2" style="background-color: #d7aaf0;">
+              <i class="fab fa-instagram"></i>
+            </button>
+          </a>
+        </div>
+        <!-- Copyright -->
+        <div class="text-center text-white p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+          © 2020 Copyright:
+          <a class="text-white" href="https://www.kalinecreation.com/boutique/">oui</a>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

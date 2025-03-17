@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Objet de Décoration{% endblock %}
+
+{% block body %}
+
+<h1 class="pt-2 text-center">
+    {% if app.request.attributes.get('_route') == "admin_objectdecoration_ajout" %}
+        Ajout
+    {% else %}
+        Modification
+    {% endif %}
+    Ajout d'objets de décoration
+</h1>
+
+{{ form_start(formObjectDecoration) }}
+{{ form_row(formObjectDecoration.image) }}
+{{ form_row(formObjectDecoration.nom) }}
+
+<div class="row">
+    <div class="col">{{ form_row(formObjectDecoration.prix) }}</div>
+    {# <div class="col">{{ form_row(formObjet.taille) }}</div>
+    <div class="col">{{ form_row(formObjet.dureeDeVie) }}</div> #}
+    <div class="col">{{ form_row(formObjectDecoration.materiaux) }}</div>
+    <div class="col">{{ form_row(formObjectDecoration.couleur) }}</div> 
+</div>
+
+{{ form_row(formObjectDecoration.description) }}
+
+<div class="row">
+    <div class="col">
+        <input type="submit" class="btn btn-outline-success btn-block form-control" value=
+        {% if app.request.attributes.get('_route') == "admin_objectdecoration_ajout" %}
+            "Ajouter l'objet"
+        {% else %}
+            "Modifier l'objet"
+        {% endif %}
+        >
+    </div>
+    <div class="col">
+        <a href="{{ path('admin_objectdecoration') }}" class="btn btn-outline-warning btn-block form-control">Annuler</a>
+    </div>
+</div>
+
+{{ form_end(formObjectDecoration) }}
+
+{% endblock %}

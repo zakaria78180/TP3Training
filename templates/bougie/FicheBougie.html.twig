@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche Bougie{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">Fiche de la Bougie</h1>
+<div class="container">
+  <!-- Bouton de retour à la liste des bougies -->
+  <div class="mt-4">
+    <a href="{{ path('Bougies') }}" class="mb-4 btn btn-outline-warning">Retour à la liste</a>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-4">
+      <img style=" width:500px" class="center-block" src="{{ asset('uploads/images/' ~ LaBougie.imageFileName|replace({'http://': '', 'https://': ''})) }}" alt="Card image">
+    </div>
+
+      <div class="col-md-5 mb-4">
+        <div class="card">
+          <div class="card-header">
+            <h3><u>{{ LaBougie.nom }}</u></h3>
+          </div>
+          <div class="card-body">
+            <h4>Prix : {{ LaBougie.prix }} €</h4>
+            <!-- Accordéon pour informations supplémentaires -->
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Informations supplémentaires
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <h6>Matériaux : {{ LaBougie.materiaux }}</h6>
+                    <h6>Couleur : {{ LaBougie.couleur }}</h6>
+                    <h6>Durée de vie : {{ LaBougie.ddv }}h</h6>
+                    <h6>Taille : {{ LaBougie.taille }}</h6>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Form to add to cart with quantity -->
+            <form id="add-to-cart-form" action="{{ path('add_to_cart', {'type': 'bougie', 'id': LaBougie.id}) }}" method="post">
+              <div class="form-group">
+                <label for="quantity">Quantité :</label>
+                <div class="input-group quantity-input">
+                  <input type="number" id="quantity" name="quantity" class="form-control" value="1" min="1" required>
+                </div>
+                <div class="invalid-feedback">
+                  Veuillez entrer une quantité valide.
+                </div>
+              </div>
+              <button type="submit" class="btn btn-outline-success mt-4">Ajouter au panier</button>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+  </div>
+</div>
+
+{% endblock %}
