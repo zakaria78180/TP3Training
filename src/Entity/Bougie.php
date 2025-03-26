@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\BougieRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Contraints as Assert;
 
 #[ORM\Entity(repositoryClass: BougieRepository::class)]
 class Bougie extends Produit
@@ -21,6 +22,8 @@ class Bougie extends Produit
 
     #[ORM\Column(length: 255)]
     private ?string $taille = null;
+    #[Assert\Regex(("/^[a-zA-Z]{5}$/"))]
+    #[Assert\NotBlank()]
 
     public function getCouleur(): ?string
     {
@@ -37,6 +40,7 @@ class Bougie extends Produit
     public function getPoid(): ?string
     {
         return $this->poid;
+      
     }
 
     public function setPoid(string $poid): static
