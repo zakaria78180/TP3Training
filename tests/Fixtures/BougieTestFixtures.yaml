@@ -1,5 +1,0 @@
-App\Entity\BougieCode:
- code:
-  code: "54321"
-  description: Code de test
-  expire_at: <dateTime("+1 year")> 

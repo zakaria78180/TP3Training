@@ -1,0 +1,32 @@
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.description) }}
+        {{ form_widget(form.description) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.description) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.price) }}
+        {{ form_widget(form.price) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.price) }}
+        </div>
+    </div>
+    <div class="mb-3">
+        {{ form_label(form.brand) }}
+        {{ form_widget(form.brand) }}
+        <div class="invalid-feedback">
+            {{ form_errors(form.brand) }}
+        </div>
+    </div>
+    <button class="btn btn-primary">{{ button_label|default('Enregistrer') }}</button>
+{{ form_end(form) }}
+

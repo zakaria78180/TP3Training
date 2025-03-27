@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Statistiques des marques{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1>Statistiques des marques</h1>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                Nombre d'articles par marque
+            </div>
+            <div class="card-body">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Marque</th>
+                            <th>Nombre d'articles</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for brand in brandsWithCount %}
+                        <tr>
+                            <td>{{ brand.name }}</td>
+                            <td>{{ brand.articleCount }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="2">Aucune donnée disponible</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <a href="{{ path('app_brand_index') }}" class="btn btn-secondary">Retour à la liste des marques</a>
+    </div>
+{% endblock %}
+

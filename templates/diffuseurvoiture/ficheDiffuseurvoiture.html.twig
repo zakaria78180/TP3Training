@@ -43,6 +43,7 @@
                   <h6>Couleur: {{ diffuseur.couleur }}</h6>
                   <h6>Durée de vie: {{ diffuseur.dureeDeVie }}h</h6>
                   <h6>Taille: {{ diffuseur.taille }}</h6>
+                  
                 </div>
               </div>
               <form id="add-to-cart-form" action="{{ path('add_to_cart', {'type': 'bougie', 'id': diffuseur.id}) }}" method="post">
